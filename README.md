@@ -10,6 +10,15 @@ the frontend using React.
 The plan is to include many tools and utilities that I like, that can be 
 easily pruned from projects that don't need particular features.
 
+## Overview #
+
+* Configured django-allauth with Bootstrap 4 templates for authentication pages.
+* Extra field for JSON objects.
+* Abstract Model class for Singleton objects.
+* Included select vendor libraries:
+    * JQuery
+    * Leaflet
+
 ## Getting Started #
 
 Use this repository for starting Djreact Stack projects.
