@@ -1,0 +1,58 @@
+
+{% extends "account/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <form class="form-signin" id="login_form" method="post" action="{% url 'account_login' %}">
+
+    {% csrf_token %}
+
+    <h2 class="form-signin-heading">Login</h2>
+
+    <p>Don't have an account? Then please <a href="{{ signup_url }}">sign up</a>.</p>
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <label for="inputLogin" class="sr-only">Username or E-Mail</label>
+    {% if form.login.errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.login.errors }}
+      </div>
+    {% endif %}
+    <input type="text" name="login" id="inputUsername" class="form-control" placeholder="Username or E-Mail" required autofocus>
+    
+    <label for="inputPassword" class="sr-only">Password</label>
+    {% if form.password.errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.password.errors }}
+      </div>
+    {% endif %}
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="remember" id="inputRemember" />
+          Remember Me
+      </label>
+    </div>
+
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <a class="btn btn-lg btn-danger btn-block" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+  </form>
+
+</div> <!-- /container -->
+
+{% endblock %}

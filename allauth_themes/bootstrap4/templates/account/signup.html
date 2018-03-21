@@ -1,0 +1,62 @@
+
+{% extends "account/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <form class="form-signin" id="signup_form" method="post" action="{% url 'account_signup' %}">
+
+    {% csrf_token %}
+
+    <h2 class="form-signin-heading">Registration</h2>
+
+    <p>Already have an account? Then please <a href="{{ login_url }}">sign in</a>.</p>
+
+    <label for="inputUsername" class="sr-only">Username</label>
+    {% if form.username.errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.username.errors }}
+      </div>
+    {% endif %}
+    <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+
+    <label for="inputEmail" class="sr-only">E-Mail Address (optional)</label>
+    {% if form.email.errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.email.errors }}
+      </div>
+    {% endif %}
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email Address">
+    
+    <label for="inputPassword" class="sr-only">Password</label>
+    {% if form.password1.errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.password1.errors }}
+      </div>
+    {% endif %}
+    <input type="password" name="password1" id="inputPassword" class="form-control" placeholder="Password" required>
+    
+    <label for="inputPassword2" class="sr-only">Confirm Password</label>
+    {% if form.password2.errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.password2.errors }}
+      </div>
+    {% endif %}
+    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm Password" required>
+
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+  </form>
+
+</div> <!-- /container -->
+
+{% endblock %}

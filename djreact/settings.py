@@ -25,7 +25,7 @@ SECRET_KEY = '4ph07=*^u6bi39!7wj*d$7xl^-el1r8-bn9a_-%^&yu1xd2=n4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -36,12 +36,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites'
+    'django.contrib.sites',
+    
+    # bootstrap 4 templates to override django-allauth templates
+    'allauth_themes.bootstrap4',
 
     # django-allauth for authentication
     'allauth',
     'allauth.account',
-    'allauth.socialaccount'
+    'allauth.socialaccount',
+    
+    'djreact_utils'
 ]
 
 MIDDLEWARE = [

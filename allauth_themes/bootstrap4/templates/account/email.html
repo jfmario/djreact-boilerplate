@@ -1,0 +1,86 @@
+
+{% extends "account/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  {% if user.emailaddress_set.all %}
+    <form class="form-signin" id="email_list_form" method="post" action="{% url 'account_email' %}">
+
+      {% csrf_token %}
+
+      <h2 class="form-signin-heading">Account E-Mails</h2>
+
+      <p>These are your e-mail addresses.</p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>E-Mail</th>
+            <th>Status</th>
+            <th>Primary</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for emailaddress in user.emailaddress_set.all %}
+            <tr>
+              <td>
+                <input id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
+              </td>
+              <td>{{ emailaddress.email }}</td>
+              <td>
+                {% if emailaddress.verified %}
+                  <span class="badge badge-success">Verified</span>
+                {% else %}
+                  <span class="badge badge-warning">Unverified</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if emailaddress.primary %}
+                  <span class="badge badge-primary">Primary</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+
+      <button class="btn btn-lg btn-primary btn-block" name="action_primary" type="submit">Make Primary</button>
+      <button class="btn btn-lg btn-info btn-block" name="action_send" type="submit">Re-send Verification</button>
+      <button class="btn btn-lg btn-danger btn-block" name="action_remove" type="submit">Remove E-mail</button>
+    </form>
+  {% else %}
+    <p>You do not have any e-mail addresses on file. You can add one tho.</p>
+  {% endif %}
+
+  <form class="form-signin" id="email_list_form" method="post" action="{% url 'account_email' %}">
+
+    {% csrf_token %}
+
+    <label for="inputEmail" class="sr-only">E-Mail Address</label>
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email Address">
+
+    <button class="btn btn-lg btn-success btn-block" name="action_add" type="submit">Add E-Mail</button>
+  </form>
+
+</div> <!-- /container -->
+
+<script type="text/javascript">
+(function() {
+  var message = "Do you really want to remove the selected e-mail address?";
+  var actions = document.getElementsByName('action_remove');
+  if (actions.length) {
+    actions[0].addEventListener("click", function(e) {
+      if (! confirm(message)) {
+        e.preventDefault();
+      }
+    });
+  }
+})();
+</script>
+{% endblock %}

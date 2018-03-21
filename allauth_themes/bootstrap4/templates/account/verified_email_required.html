@@ -1,0 +1,15 @@
+
+{% extends "account/base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <form class="form-signin" id="verified_email_required_form" method="post" action="/">
+
+    <h2 class="form-signin-heading">Verify E-Mail</h2>
+
+    <p>This part of the website requires a verified e-mail address. <a href="{{ email_url }}">Manage e-mails</a>.</p>
+  </form>
+</div> <!-- /container -->
+
+{% endblock %}

@@ -1,0 +1,32 @@
+
+{% extends "account/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <form class="form-signin" id="logout_form" method="post" action="{% url 'account_logout' %}">
+
+    {% csrf_token %}
+
+    <h2 class="form-signin-heading">Logout</h2>
+
+    <p>Are you sure you want to sign out?</p>
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        There are some errors:
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+
+    <button class="btn btn-lg btn-danger btn-block" type="submit">Sign Out</button>
+  </form>
+
+</div> <!-- /container -->
+
+{% endblock %}
