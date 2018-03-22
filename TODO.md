@@ -1,4 +1,6 @@
 
+* Library of Templates
+* Landing Page
 * User Profiles Page (`user_profiles`)
 * Optional Chat Server (`chat`)
 * Queue Manager App (`queue_manager`)
