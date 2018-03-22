@@ -19,9 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from djreact_utils.views import site_home
+
 urlpatterns = [
   path('accounts/', include('allauth.urls')),
   path('admin/', admin.site.urls),
+  path('', site_home)
 ]
 
 # serving media files in debug mode

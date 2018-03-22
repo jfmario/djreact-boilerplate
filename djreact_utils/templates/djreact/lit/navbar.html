@@ -1,0 +1,13 @@
+
+<div class="bg-success mv0 pv2 row">
+  <div class="col">
+    {% if brand %}
+      <b class="ph2 white">{{ brand }}</b>
+    {% endif %}
+    {% if links %}
+      {% for link in links %}
+        <a class="ph2 white" href="{{ link.link }}">{{ link.title }}</a>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

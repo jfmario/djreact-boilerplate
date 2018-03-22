@@ -1,0 +1,77 @@
+
+{% extends 'djreact/lit/lit_base.html' %}
+
+{% block body %}
+
+  {% include 'djreact/lit/navbar.html' with brand=title links=links %}
+  
+  <div class="bg-black mv0 white">
+    
+    <div class="c">
+      
+      <h1>{{ title }}</h1>
+    
+      <p>
+        This is the template for a simple site. Edit this template
+        in <tt>djreact_utils/templates/djreact/home.html</tt> to display
+        something more to your liking.
+      </p>
+      
+      <br />
+      
+      <p>
+        <a class="btn rounded bg-accent b-accent white" href="/home">Enter &raquo;</a>
+      </p>
+    </div>
+  </div>
+  <div class="c">
+    
+    <div class="row">
+      <div class="col 4">
+        
+        <h3>Authentication</h3>
+        
+        <p>
+          Many parts of the site may require you to be logged in.
+          Click below to log in or register.
+        </p>
+        
+        <p>
+          <a class="btn rounded bg-info b-info white" href="/accounts/login">Login &raquo;</a>
+        </p>
+      </div>
+      <div class="col 4">
+        
+        <h3>Admin Panel</h3>
+        
+        <p>
+          Manage your stuff if you are an admin user.
+          Click below to log in to the admin panel.
+        </p>
+        
+        <p>
+          <a class="btn rounded bg-info b-info white" href="/admin">Admin &raquo;</a>
+        </p>
+      </div>
+      <div class="col 4">
+        
+        <h3>Blog</h3>
+        
+        <p>
+          This blog is not really updated, but you can check it out.
+          Click below to see what's there.
+        </p>
+        
+        <p>
+          <a class="btn rounded bg-info b-info white" href="/blog">Blog &raquo;</a>
+        </p>
+      </div>
+    </div>
+    
+    <br />
+    
+    <hr />
+    
+    <p>Django-React Boilerplate by John F Marion</p>
+  </div>
+{% endblock %}
