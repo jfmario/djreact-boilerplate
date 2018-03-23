@@ -1,3 +1,5 @@
+
+from django.conf import settings
 from django.shortcuts import render
 
 # Create your views here.
@@ -5,9 +7,6 @@ from django.shortcuts import render
 def site_home(request):
   data = {
     'title': "My Django Site",
-    'links': [
-      { 'title': 'Home', 'link': '/' },
-      { 'title': 'GitHub', 'link': 'https://github.com' }
-    ]
+    'links': getattr(settings, 'MAIN_MENU', [])
   }
   return render(request, 'djreact/home.html', data)

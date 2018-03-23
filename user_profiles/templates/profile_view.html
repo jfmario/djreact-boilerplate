@@ -1,0 +1,20 @@
+
+{% extends 'djreact/lit/lit_base.html' %}
+
+{% block body %}
+
+  {% include 'djreact/lit/navbar.html' with brand=title links=links %}
+  
+  <h1>{{ user.username }}</h1>
+  
+  {% if current_user %}
+    <p>
+      This is your profile.
+      <a href="edit">Click here</a> to edit it.
+    </p>
+  {% else %}
+    <p>
+      This is the public profile for {{ user.username }}.
+    </p>
+  {% endif %}
+{% endblock %}

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     
-    'djreact_utils'
+    'djreact_utils',
+    'user_profiles'
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,10 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 
 SITE_ID = 1
+
+# Standard Navigation Menu
+# Should be limited to 4 links max
+MAIN_MENU = [
+  { 'title': 'Home', 'link': '/' },
+  { 'title': 'GitHub', 'link': 'https://github.com' }
+]
