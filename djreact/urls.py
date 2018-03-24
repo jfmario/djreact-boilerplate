@@ -21,9 +21,12 @@ from django.urls import include, path
 
 from djreact_utils.views import site_home
 
+from user_profiles.urls import user_profile_urls
+
 urlpatterns = [
   path('accounts/', include('allauth.urls')),
   path('admin/', admin.site.urls),
+  path('user/', include(user_profile_urls)),
   path('', site_home)
 ]
 
