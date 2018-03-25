@@ -1,0 +1,15 @@
+
+{% if flash_messages %}
+  <div id="flash-messages" class="c">
+    {% for msg in flash_messages %}
+      <div class="{{ msg.css_class }} pv1 ph2 rounded white">
+        {% if msg.header %}
+          
+          <p class="large m0">{{ msg.header }}</p>
+          
+          {{ msg.message }}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

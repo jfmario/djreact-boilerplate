@@ -1,0 +1,77 @@
+
+{% extends 'djreact/lit/lit_base.html' %}
+
+{% block body %}
+
+  {% include 'djreact/lit/navbar.html' with brand=title links=links %}
+  {% include 'djreact/lit/flash_messages.html' %}
+  
+  {% if user_profile.image_url %}
+    <img src="{{ user_profile.image_url }}" style="display:block;margin-left:auto;margin-right:auto; max-width:20%" />
+  {% endif %}
+  
+  <h1 style="text-align:center;">{{ user_profile.user.username }}</h1>
+  
+  {% if self_user %}
+    <p style="text-align:center;">
+      You are editing your profile.
+    </p>
+  {% endif %}
+  
+  <div class="c">
+    <form method='POST'>
+      
+      {% csrf_token %}
+      
+      <div class="row">
+        <div class="col 6">
+          First Name: 
+          <input class="card w-100" name="first_name" type="text" value="{{ user_profile.first_name }}">
+        </div>
+        <div class="col 6">
+          Last Name: 
+          <input class="card w-100" name="last_name" type="text" value="{{ user_profile.last_name }}">
+        </div>
+      </div>
+      <div>
+        Image Url: 
+        <input class="card w-100" name="image_url" type="text" value="{{ user_profile.image_url }}">
+      </div>
+      <div>
+        Date of Birth: 
+        <input class="card w-100" name="date_of_birth" type="date" value="{{ user_profile.date_of_birth|date:'Y-m-d' }}">
+      </div>
+      <div>
+        Gender: 
+        <select class="card w-100" name="gender" type="date" value="{{ user_profile.gender }}">
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+      </div>
+      <div>
+        City: 
+        <input class="card w-100" name="city" type="text" value="{{ user_profile.city }}">
+      </div>
+      <div>
+        State or Province: 
+        <input class="card w-100" name="state" type="text" value="{{ user_profile.state }}">
+      </div>
+      <div>
+        Country: 
+        <input class="card w-100" name="country" type="text" value="{{ user_profile.country }}">
+      </div>
+      <div>
+        About You: 
+        <textarea class="card w-100" name="bio">{{ user_profile.bio }}</textarea>
+      </div>
+      <div>
+        <p>
+          <button class="btn rounded bg-success b-success white" type="submit">Submit</button>
+        </p>
+        <p>
+          <a class="btn rounded bg-warning b-warning white" href="view">Cancel</a>
+        </p>
+      </div>
+    </form>
+  </div>
+{% endblock %}

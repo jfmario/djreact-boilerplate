@@ -155,6 +155,7 @@ SITE_ID = 1
 
 # Standard Navigation Menu
 # Should be limited to 4 links max
+MAIN_BRAND = "My Djreact Site"
 MAIN_MENU = [
   { 'title': 'Home', 'link': '/' },
   { 'title': 'GitHub', 'link': 'https://github.com' }
