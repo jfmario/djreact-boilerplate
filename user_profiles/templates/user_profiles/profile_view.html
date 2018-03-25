@@ -5,16 +5,83 @@
 
   {% include 'djreact/lit/navbar.html' with brand=title links=links %}
   
-  <h1>{{ user.username }}</h1>
+  {% if user_profile.image_url %}
+    <img src="{{ user_profile.image_url }}" style="display:block;margin-left:auto;margin-right:auto; max-width:20%" />
+  {% endif %}
+  
+  <h1 style="text-align:center;">{{ user_profile.user.username }}</h1>
   
   {% if self_user %}
-    <p>
+    <p style="text-align:center;">
       This is your profile.
       <a href="edit">Click here</a> to edit it.
     </p>
   {% else %}
-    <p>
-      This is the public profile for {{ user.username }}.
+    <p style="text-align:center;">
+      This is the public profile for {{ user_profile.user.username }}.
     </p>
   {% endif %}
+  
+  <div class="c">
+    <div class="row">
+      <div class="col 9">
+        
+        <h4>Information</h4>
+        
+        {% if user_profile.first_name or user_profile.last_name %}
+          <p>
+            
+            <b>Name: </b>
+            
+            {% if user_profile.first_name %}{{ user_profile.first_name }} {% endif %}{% if user_profile.last_name %}{{ user_profile.last_name }}{% endif %}
+          </p>
+        {% endif %}
+        {% if user_profile.date_of_birth %}
+          <p>
+            <b>Date of Birth: </b>{{ user_profile.date_of_birth|date:'F d, Y' }}
+          </p>
+        {% endif %}
+        {% if user_profile.gender %}
+          <p>
+            <b>Gender: </b>{{ user_profile.gender }}
+          </p>
+        {% endif %}
+        {% if user_profile.city or user_profile.state or user_profile.country %}
+          <p>
+            
+            <b>Location: </b>
+            
+            {% if user_profile.city %}{{ user_profile.city }}, {% endif %}
+            {% if user_profile.state %}{{ user_profile.state }}, {% endif %}
+            {% if user_profile.country %}{{ user_profile.country }}{% endif %}
+          </p>
+        {% endif %}
+        {% if user_profile.bio %}
+        
+          <p><b>About</b></p>
+          
+          <div>
+            {{ user_profile.bio }}
+          </div>
+        {% endif %}
+        <p>
+          <b>Member Since: </b>{{ user_profile.join_date|date:'F d, Y' }}
+        </p>
+      </div>
+      <div class="col 3">
+        {% if user_profile.friends %}
+        
+          <h5>Friends</h5>
+          
+          <div class="inline card p0 rounded">
+            {% for friend in user_profile.friends.all %}
+              <div class="card m0">
+                <a href="../{{ user_profile.pk }}/view">{{ friend.user.username }}</a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}

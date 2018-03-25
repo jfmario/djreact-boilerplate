@@ -26,8 +26,8 @@ class UserProfile(models.Model):
   bio = models.TextField(blank=True, null=True)
   
   GENDER_CHOICES = [
-    ("Male", 'M'),
-    ("Female", 'F')
+    ('M', "Male"),
+    ("F", 'Female')
   ]
   gender = models.CharField(
     max_length=1,
