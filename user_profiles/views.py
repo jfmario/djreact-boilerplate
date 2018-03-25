@@ -1,4 +1,6 @@
 
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
@@ -75,7 +77,7 @@ def edit_profile(request, user_id):
     user_profile.first_name = request.POST['first_name']
     user_profile.last_name = request.POST['last_name']
     user_profile.image_url = request.POST['image_url']
-    user_profile.date_of_birth = request.POST['date_of_birth']
+    user_profile.date_of_birth = datetime.datetime.strptime(request.POST['date_of_birth'], '%Y-%m-%d')
     user_profile.gender = request.POST['gender']
     user_profile.city = request.POST['city']
     user_profile.state = request.POST['state']

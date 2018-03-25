@@ -21,6 +21,7 @@ from django.urls import include, path
 
 from djreact_utils.views import site_home
 
+# included apps with djreact
 from user_profiles.urls import user_profile_urls
 
 urlpatterns = [
