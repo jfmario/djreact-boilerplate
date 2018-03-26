@@ -35,3 +35,10 @@ class ChatMessage(models.Model):
   room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
   timestamp = models.DateTimeField(auto_now_add=True)
   text = models.TextField()
+  
+  def to_dict(self):
+    return {
+      'user': self.user.username,
+      'timestamp': self.timestamp.strftime('%Y%d%mT%H%M%S'),
+      'text': self.text
+    }

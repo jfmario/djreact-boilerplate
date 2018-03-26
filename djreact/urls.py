@@ -22,11 +22,13 @@ from django.urls import include, path
 from djreact_utils.views import site_home
 
 # included apps with djreact
+from chat.urls import chat_urls
 from user_profiles.urls import user_profile_urls
 
 urlpatterns = [
   path('accounts/', include('allauth.urls')),
   path('admin/', admin.site.urls),
+  path('chat/', include(chat_urls)),
   path('user/', include(user_profile_urls)),
   path('', site_home)
 ]
