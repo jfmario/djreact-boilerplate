@@ -5,6 +5,8 @@ from chat.api import add_user_to_private_chatroom
 from chat.api import create_chatroom, create_private_chat, get_recent_messages
 from chat.api import leave_chatroom, list_chatrooms, send_message
 
+from chat.views import chat_home
+
 chat_api_urls = [
   path('create/direct-message/<int:other_user_id>', create_private_chat),
   path('create/room', create_chatroom),
@@ -18,5 +20,6 @@ chat_api_urls = [
 ]
 
 chat_urls = [
-  path('api/', include(chat_api_urls))  
+  path('api/', include(chat_api_urls)),
+  path('', chat_home)
 ]

@@ -1,3 +1,4 @@
 django==2.0.3
 django-allauth==0.35.0
 markdown
+pyyaml==3.12

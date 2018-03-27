@@ -1,0 +1,12 @@
+
+- model: chat.chatroom
+  pk: 1
+  fields:
+    name: General
+    is_public: true
+    
+- model: chat.chatroom
+  pk: 2
+  fields:
+    name: Announcements
+    is_public: true

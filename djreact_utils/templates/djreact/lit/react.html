@@ -1,0 +1,16 @@
+
+{% extends 'djreact/lit/lit_base.html' %}
+
+{% load staticfiles %}
+
+{% block body %}
+
+  {% if main_menu %}
+    {% include 'djreact/lit/navbar.html' with brand=brand links=main_menu %}
+  {% endif %}
+  
+  <div id="root"></div>
+{% endblock %}
+{% block js %}
+  <script src="{% static '' %}js/{{js}}.js"></script>
+{% endblock %}
