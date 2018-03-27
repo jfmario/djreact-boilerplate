@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import ChatSvc from '../services/ChatSvc';
 
 class Chatrooms extends Component {
   
@@ -18,25 +18,33 @@ class Chatrooms extends Component {
   }
   
   async componentDidMount() {
-    
-    var res = await axios.get('./api/rooms/list');
+    var rooms = await ChatSvc.listChats();
+    console.log(rooms);
     this.setState({
-      availableRooms: res.data.available,
-      directMessages: res.data.direct,
-      privateRooms: res.data.private,
-      publicRooms: res.data.public
+      availableRooms: rooms.available,
+      directMessages: rooms.direct,
+      privateRooms: rooms.private,
+      publicRooms: rooms.public
     });
   }
   
   render() {
     return (
       <div>
+        
+        {!!(this.state.publicRooms.length > 0)  &&
+          
+          <h3>Public Rooms</h3>
+        }
         {!!(this.state.availableRooms.length > 0) &&
-          <ul>
-            {this.state.availableRooms.map((r, i) => (
-              <li key={i}>{r.name}</li>
-            ))}
-          </ul>
+          <div>
+            <h3>Available Public Rooms</h3>
+            <ul>
+              {this.state.availableRooms.map((r, i) => (
+                <li key={i}>{r.name}</li>
+              ))}
+            </ul>
+          </div>
         }
       </div>
     )

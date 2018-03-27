@@ -29,6 +29,9 @@ class ChatRoom(models.Model):
           
     return self.name
   
+  def __str__(self):
+    return self.name
+  
 class ChatMessage(models.Model):
   
   user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
@@ -42,3 +45,6 @@ class ChatMessage(models.Model):
       'timestamp': self.timestamp.strftime('%Y%d%mT%H%M%S'),
       'text': self.text
     }
+  
+  def __str__(self):
+    return "{} in {}".format(self.user.username, self.room.name)

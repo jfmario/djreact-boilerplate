@@ -15,6 +15,7 @@ chat_api_urls = [
   path('room/<int:chatroom_id>/leave', leave_chatroom),
   path('room/<int:chatroom_id>/messages/<int:y>/<int:m>/<int:d>/<int:hh>/<int:mm>/<int:ss>',
     get_recent_messages),
+  path('room/<int:chatroom_id>/messages', get_recent_messages),
   path('room/<int:chatroom_id>/send-message', send_message),
   path('rooms/list', list_chatrooms)
 ]

@@ -8,7 +8,7 @@ import Chatrooms from './components/Chatrooms';
 class App extends Component {
   render() {
     return (
-      <div class="row mh0">
+      <div class="row">
         <div class="col 3 bg-info white">
           <Chatrooms />
         </div>

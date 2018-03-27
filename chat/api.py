@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from chat.models import ChatMessage, ChatRoom
 
+@csrf_exempt
 @login_required
 def list_chatrooms(request):
   
@@ -43,7 +44,8 @@ def join_public_chatroom(request, chatroom_id):
   else:
     data = { 'message': "That chatroom is private.", 'success': False }
     return HttpResponse(json.dumps(data), status=401)
-    
+
+@csrf_exempt
 @login_required
 def add_user_to_private_chatroom(request, chatroom_id, other_user_id):
   
@@ -94,9 +96,9 @@ def create_chatroom(request):
     
     existing_chatroom = None
     if post_data['publicity'] == 'public':
-      existing_chatroom = Chatroom.objects.get(name=post_data['name'], is_public=True)
+      existing_chatroom = ChatRoom.objects.get(name=post_data['name'], is_public=True)
     else:
-      existing_chatroom = Chatroom.objects.get(
+      existing_chatroom = ChatRoom.objects.get(
         name="_private_{}".format(post_data['name']),
         is_public=False
       )
@@ -122,6 +124,7 @@ def create_chatroom(request):
   chatroom.save()
   
   data = {
+    'id': chatroom.pk,
     'message': "Chatroom created.",
     'success': True
   }
@@ -210,15 +213,19 @@ def send_message(request, chatroom_id):
   
 @csrf_exempt
 @login_required
-def get_recent_messages(request, chatroom_id, y, m, d, hh, mm, ss):
+def get_recent_messages(request, chatroom_id, y=None, m=None, d=None, hh=None, mm=None, ss=None):
   
   chatroom = ChatRoom.objects.get(chatroom_id)
   if request.user in chatroom.users.all():
-    messages = ChatMessage.objects.get(
-      room=chatroom,
-      timestamp__date__gte=datetime.date(y, m, d),
-      timestamp__time__gte=datetime.time(hh, mm, ss)
-    )
+    messages = []
+    if y:
+      messages = ChatMessage.objects.filter(
+        room=chatroom,
+        timestamp__date__gte=datetime.date(y, m, d),
+        timestamp__time__gte=datetime.time(hh, mm, ss)
+      )
+    else:
+      messages = ChatMessage.objects.filter(room=chatroom).order_by('-pk').limit(50);
     
     data = [m.to_dict() for m in messages]
     return HttpResponse(json.dumps(data))
