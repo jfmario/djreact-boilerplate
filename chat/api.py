@@ -31,7 +31,8 @@ def list_chatrooms(request):
   
   data['success'] = True
   return HttpResponse(json.dumps(data))
-  
+
+@csrf_exempt
 @login_required
 def join_public_chatroom(request, chatroom_id):
   chatroom = ChatRoom.objects.get(pk=chatroom_id)

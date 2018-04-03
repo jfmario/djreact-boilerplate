@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <div class="row">
-        <div class="col 3 bg-info white">
+        <div class="col 3 bg-info white p1">
           <Chatrooms />
         </div>
         <div class="col 9">

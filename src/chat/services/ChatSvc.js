@@ -39,6 +39,13 @@ class ChatService {
     return res.data;
   }
   
+  // joins a public chatroom and returns true if successful
+  async joinPublicChat(chatId) {
+    var res = await axios.post(`/chat/api/room/${chatId}/join`);
+    if (res.status == 200) return true;
+    else return false;
+  }
+  
   // lists chatrooms
   async listChats() {
     var res = await axios.post(`/chat/api/rooms/list`);
