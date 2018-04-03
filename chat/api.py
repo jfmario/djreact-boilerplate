@@ -216,7 +216,7 @@ def send_message(request, chatroom_id):
 @login_required
 def get_recent_messages(request, chatroom_id, y=None, m=None, d=None, hh=None, mm=None, ss=None):
   
-  chatroom = ChatRoom.objects.get(chatroom_id)
+  chatroom = ChatRoom.objects.get(pk=chatroom_id)
   if request.user in chatroom.users.all():
     messages = []
     if y:
@@ -226,9 +226,18 @@ def get_recent_messages(request, chatroom_id, y=None, m=None, d=None, hh=None, m
         timestamp__time__gte=datetime.time(hh, mm, ss)
       )
     else:
-      messages = ChatMessage.objects.filter(room=chatroom).order_by('-pk').limit(50);
+      messages = ChatMessage.objects.filter(room=chatroom).order_by('-pk')[:50]
     
-    data = [m.to_dict() for m in messages]
+    serialized_messages = []
+    if messages:
+      serialized_messages = [m.to_dict() for m in messages]
+    
+    serialized_messages.reverse()
+    
+    data = {
+      'chatroom': chatroom.name,
+      'messages': serialized_messages
+    }
     return HttpResponse(json.dumps(data))
     
   else:
