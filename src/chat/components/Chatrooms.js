@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 
 import ChatSvc from '../services/ChatSvc';
 
+/**
+ * Component Chatrooms
+ * function onSelectChat Function will be called with the chat id that the user selects.
+ */
 class Chatrooms extends Component {
   
   constructor(props) {
@@ -10,6 +14,7 @@ class Chatrooms extends Component {
     super(props);
     
     this.handleAvailableChatClick = this.handleAvailableChatClick.bind(this);
+    this.handleChatClick = this.handleChatClick.bind(this);
     this.state = {
       publicRooms: [],
       availableRooms: [],
@@ -32,6 +37,10 @@ class Chatrooms extends Component {
     });
   }
   
+  async handleChatClick(e) {
+    let chatId = e.target.attributes.chatid.value;
+    this.props.onSelectChat(chatId);
+  }
   async handleAvailableChatClick(e) {
     
     let chatId = e.target.attributes.chatid.value;
@@ -56,7 +65,15 @@ class Chatrooms extends Component {
           
             <ul>
               {this.state.publicRooms.map((r, i) => (
-                <li key={i}>{r.name}</li>
+                <li key={i}>
+                  <a
+                    href="javascript:void(0);"
+                    chatid={r.id}
+                    onClick={this.handleChatClick}
+                  >
+                    {r.name}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>

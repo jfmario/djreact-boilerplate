@@ -4,8 +4,9 @@
   "description": "A boilerplate for django and react.",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack-dev": "./node_modules/webpack/bin/webpack.js --mode development"
   },
   "author": "John F Marion",
   "license": "ISC",
