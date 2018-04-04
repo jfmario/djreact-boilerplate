@@ -40,11 +40,27 @@ class ChatMessage(models.Model):
   text = models.TextField()
   
   def to_dict(self):
-    return {
+    
+    data =  {
       'user': self.user.username,
       'timestamp': self.timestamp.strftime('%Y%d%mT%H%M%S'),
       'text': self.text
     }
+    
+    # optional enrichment with user profile
+    try:
+      
+      from user_profiles.models import UserProfile
+      up = UserProfile.objects.get_or_create(user=self.user)[0]
+      
+      # print(up.image_url)
+      
+      if up.image_url:
+        data['user_image'] = up.image_url
+    except:
+      pass
+    
+    return data
   
   def __str__(self):
     return "{} in {}".format(self.user.username, self.room.name)

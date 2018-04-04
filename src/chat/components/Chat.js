@@ -73,10 +73,14 @@ class Chat extends Component {
         
         <div>
           {!!(this.state.messages.length > 0) &&
-            <div>
+            <div style={{ height: "400px", overflow: 'scroll' }}>
               {this.state.messages.map((m, i) => (
                 <div key={i}>
                   <p>
+                    
+                    {!!(m.user_image) &&
+                      <img className="m1" style={{ height: '20px', width: '20px', float: 'left' }} src={m.user_image} />
+                    }
                     
                     <b>{m.user}</b>
                     
