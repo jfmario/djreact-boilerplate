@@ -1,6 +1,8 @@
 
 import datetime, json
 
+from django.conf import settings
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -8,6 +10,31 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from chat.models import ChatMessage, ChatRoom
+
+@csrf_exempt
+@login_required
+def list_chatroom_members(request, chatroom_id):
+  chatroom = ChatRoom.objects.get(pk=chatroom_id)
+  if request.user in chatroom.users.all():
+    
+    data = {
+      'members': [],
+      'success': True
+    }
+    
+    for u in chatroom.users.all():
+      data['members'].append({
+        'id': u.pk,
+        'username': u.username
+      })
+    
+    return HttpResponse(json.dumps(data))
+  else:
+    data = {
+      'success': False,
+      'message': "You do not have access to that chatroom."
+    }
+    return HttpResponse(json.dumps(data), status=401)
 
 @csrf_exempt
 @login_required

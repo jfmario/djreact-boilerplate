@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from djreact_utils.api import is_admin
 from djreact_utils.views import site_home
 
 # included apps with djreact
@@ -30,6 +31,7 @@ urlpatterns = [
   path('admin/', admin.site.urls),
   path('chat/', include(chat_urls)),
   path('user/', include(user_profile_urls)),
+  path('api/is-admin', is_admin),
   path('', site_home)
 ]
 

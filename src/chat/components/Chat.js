@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import ChatSvc from '../services/ChatSvc';
+import DjreactSvc from '../../djreact/services/DjreactSvc';
 
 class Chat extends Component {
   
@@ -18,6 +19,7 @@ class Chat extends Component {
       chatDescription: '',
       chatId: props.chatId,
       chatName: '',
+      isAdmin: false,
       messages: [],
       userMessage: ''
     };
@@ -26,12 +28,20 @@ class Chat extends Component {
   async componentDidMount() {
     await this.updateChats(this.props.chatId);
     setInterval(this.updateChats, 5000);
+    var isAdmin = await DjreactSvc.isAdmin();
+    this.setState({
+      isAdmin: isAdmin
+    });
   }
   
   async componentWillReceiveProps(props) {
     if (props.chatId != this.state.chatId) {
       this.setState({ messages: [], chatId: props.chatId });
       await this.updateChats(props.chatId);
+      var isAdmin = await DjreactSvc.isAdmin();
+      this.setState({
+        isAdmin: isAdmin
+      });
     }
   }
   
@@ -73,8 +83,14 @@ class Chat extends Component {
         
         {!!(this.state.messages.length > 0) &&
           <p>
-            <a href="javascript:void(0);">Members</a>
+            <a href="javascript:void(0);">
+              <img src="/static/svg/vendor/glyph/si-glyph-person-2.svg" height="10px" />&nbsp;Members
+            </a>
             &nbsp;|&nbsp;{this.state.chatDescription}
+            &nbsp;
+            {!!(this.state.isAdmin) &&
+              <a className="btn bg-info b-info white p1" href={"/admin/chat/chatroom/" + this.state.chatId + "/change"}>Edit</a>
+            }
           </p>
         }
         
