@@ -236,6 +236,7 @@ def get_recent_messages(request, chatroom_id, y=None, m=None, d=None, hh=None, m
     
     data = {
       'chatroom': chatroom.name,
+      'description': chatroom.description,
       'messages': serialized_messages
     }
     return HttpResponse(json.dumps(data))

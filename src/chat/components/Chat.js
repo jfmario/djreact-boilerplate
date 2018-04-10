@@ -15,6 +15,7 @@ class Chat extends Component {
     this.sendChat = this.sendChat.bind(this);
     this.updateChats = this.updateChats.bind(this);
     this.state = {
+      chatDescription: '',
       chatId: props.chatId,
       chatName: '',
       messages: [],
@@ -41,6 +42,7 @@ class Chat extends Component {
     let data = await ChatSvc.getRecentMessages(chatId);
     let messages = this.state.messages;
     this.setState({
+      chatDescription: data.description,
       chatName: data.chatroom,
       messages: [].concat(data.messages)
     });
@@ -68,6 +70,14 @@ class Chat extends Component {
         <p>
           <b># {this.state.chatName}</b>
         </p>
+        
+        {!!(this.state.messages.length > 0) &&
+          <p>
+            <a href="javascript:void(0);">Members</a>
+            &nbsp;|
+            &nbsp;{this.state.chatDescription}
+          </p>
+        }
         
         <hr />
         

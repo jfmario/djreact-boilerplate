@@ -7,6 +7,7 @@ from django.db import models
 class ChatRoom(models.Model):
   
   name = models.CharField(max_length=32, blank=True, null=True, unique=True)
+  description = models.TextField(blank=True, null=True)
   is_direct = models.BooleanField(default=False)
   is_public = models.BooleanField(default=True)
   keep_messages = models.BooleanField(default=True)
@@ -15,7 +16,8 @@ class ChatRoom(models.Model):
   def to_dict(self, user):
     return {
       'id': self.pk,
-      'name': self.get_name(user)
+      'name': self.get_name(user),
+      'descripton': self.description
     }
     
   def get_name(self, user):
