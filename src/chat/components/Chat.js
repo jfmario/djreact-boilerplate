@@ -74,8 +74,7 @@ class Chat extends Component {
         {!!(this.state.messages.length > 0) &&
           <p>
             <a href="javascript:void(0);">Members</a>
-            &nbsp;|
-            &nbsp;{this.state.chatDescription}
+            &nbsp;|&nbsp;{this.state.chatDescription}
           </p>
         }
         
